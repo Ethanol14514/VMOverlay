@@ -57,29 +57,26 @@ void VMOverlayApp::initialize()
         3000
     );
     
-    // Start monitoring (you can configure VM name via command line or config file)
-    QString vmName = "win10"; // Default VM name, can be configured
-    if (arguments().size() > 1) {
-        vmName = arguments().at(1);
-    }
-    
-    m_vmManager->startMonitoring(vmName);
-    
-    // Configure overlay paths (these should be configured properly)
+    // Parse command line arguments
+    QString vmName = "win10"; // Default VM name
     QString overlayPath = "/var/lib/libvirt/images/overlay.qcow2";
     QString basePath = "/var/lib/libvirt/images/base.qcow2";
     
-    // Check for command line arguments for paths
-    for (int i = 1; i < arguments().size(); i++) {
-        if (arguments().at(i) == "--overlay" && i + 1 < arguments().size()) {
-            overlayPath = arguments().at(i + 1);
+    QStringList args = arguments();
+    for (int i = 1; i < args.size(); i++) {
+        if (args.at(i) == "--overlay" && i + 1 < args.size()) {
+            overlayPath = args.at(i + 1);
             i++;
-        } else if (arguments().at(i) == "--base" && i + 1 < arguments().size()) {
-            basePath = arguments().at(i + 1);
+        } else if (args.at(i) == "--base" && i + 1 < args.size()) {
+            basePath = args.at(i + 1);
             i++;
+        } else if (!args.at(i).startsWith("--")) {
+            // First non-option argument is VM name
+            vmName = args.at(i);
         }
     }
     
+    m_vmManager->startMonitoring(vmName);
     m_overlayManager->setOverlayPath(overlayPath);
     m_overlayManager->setBasePath(basePath);
     

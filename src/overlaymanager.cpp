@@ -77,6 +77,7 @@ bool OverlayManager::executeCommand(const QString &command, const QStringList &a
 {
     if (m_currentProcess) {
         qDebug() << "Another operation is in progress";
+        emit operationProgress("另一个操作正在进行中，请稍后再试");
         return false;
     }
     

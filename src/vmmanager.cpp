@@ -104,7 +104,7 @@ bool VMManager::queryVMStateViaCommand()
     }
     
     QString output = process.readAllStandardOutput();
-    QStringList runningVMs = output.split('\n', Qt::SkipEmptyParts);
+    QStringList runningVMs = output.split('\n', Qt::SplitBehavior::SkipEmptyParts);
     
     return runningVMs.contains(m_vmName);
 }
