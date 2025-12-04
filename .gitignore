@@ -29,3 +29,4 @@ Makefile
 
 # Executables
 VMOverlay
+_codeql_detected_source_root
