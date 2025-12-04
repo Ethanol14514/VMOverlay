@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=VMOverlay
+GenericName=虚拟机 Overlay 管理
+Comment=管理 libvirt 虚拟机的 qcow2 overlay 镜像
+# 修改以下路径为实际的可执行文件路径
+Exec=/usr/local/bin/VMOverlay
+Icon=computer-vm
+Terminal=false
+Categories=System;Utility;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true

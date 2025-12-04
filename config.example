@@ -1,0 +1,14 @@
+# VMOverlay 配置文件示例
+# 复制此文件到 ~/.config/vmoverlay/config 并根据需要修改
+
+# 虚拟机名称
+VM_NAME=win10
+
+# Overlay 镜像路径
+OVERLAY_PATH=/var/lib/libvirt/images/overlay.qcow2
+
+# Base 镜像路径
+BASE_PATH=/var/lib/libvirt/images/base.qcow2
+
+# 检查间隔（秒）
+CHECK_INTERVAL=5
