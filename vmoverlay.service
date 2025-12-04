@@ -4,8 +4,11 @@ After=graphical.target
 
 [Service]
 Type=simple
-# 修改以下路径为实际的可执行文件路径
-ExecStart=/usr/local/bin/VMOverlay win10 --overlay /var/lib/libvirt/images/overlay.qcow2 --base /var/lib/libvirt/images/base.qcow2
+# 使用环境变量配置路径，或在启动前设置这些变量
+# 示例: systemctl --user set-environment VM_NAME=win10
+# 示例: systemctl --user set-environment OVERLAY_PATH=/path/to/overlay.qcow2
+# 示例: systemctl --user set-environment BASE_PATH=/path/to/base.qcow2
+ExecStart=/usr/local/bin/VMOverlay ${VM_NAME:-win10} --overlay ${OVERLAY_PATH:-/var/lib/libvirt/images/overlay.qcow2} --base ${BASE_PATH:-/var/lib/libvirt/images/base.qcow2}
 Restart=on-failure
 RestartSec=5
 

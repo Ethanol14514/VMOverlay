@@ -19,13 +19,17 @@ if ! command -v g++ &> /dev/null; then
 fi
 
 # Check for Qt6
-if ! pkg-config --exists Qt6Core 2>/dev/null; then
-    echo "Warning: Qt6 not found via pkg-config."
-    echo "Please install Qt6 development packages:"
-    echo "  Ubuntu/Debian: sudo apt install qt6-base-dev qt6-svg-dev"
-    echo "  Arch Linux: sudo pacman -S qt6-base qt6-svg"
-    echo "  Fedora: sudo dnf install qt6-qtbase-devel qt6-qtsvg-devel"
-fi
+echo "Checking for Qt6 components..."
+for component in Qt6Core Qt6Widgets Qt6DBus Qt6Svg; do
+    if ! pkg-config --exists $component 2>/dev/null; then
+        echo "Warning: $component not found via pkg-config."
+        echo "Please install Qt6 development packages:"
+        echo "  Ubuntu/Debian: sudo apt install qt6-base-dev qt6-svg-dev"
+        echo "  Arch Linux: sudo pacman -S qt6-base qt6-svg"
+        echo "  Fedora: sudo dnf install qt6-qtbase-devel qt6-qtsvg-devel"
+        break
+    fi
+done
 
 # Create build directory
 BUILD_DIR="build"

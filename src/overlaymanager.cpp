@@ -82,7 +82,7 @@ bool OverlayManager::executeCommand(const QString &command, const QStringList &a
     
     m_currentProcess = new QProcess(this);
     
-    connect(m_currentProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+    connect(m_currentProcess, &QProcess::finished,
             this, &OverlayManager::onProcessFinished);
     connect(m_currentProcess, &QProcess::errorOccurred,
             this, &OverlayManager::onProcessError);

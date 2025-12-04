@@ -73,6 +73,8 @@ bool VMManager::queryVMState()
     }
     
     // Try to query libvirt via DBus
+    // Note: libvirt DBus API is complex and may vary by version
+    // We primarily rely on the virsh fallback method for reliability
     QDBusInterface interface(
         "org.libvirt",
         "/org/libvirt/QEMU",
@@ -81,18 +83,12 @@ bool VMManager::queryVMState()
     );
     
     if (!interface.isValid()) {
-        qDebug() << "Failed to connect to libvirt DBus interface";
-        // Fallback: try using virsh command
+        qDebug() << "Failed to connect to libvirt DBus interface, using virsh fallback";
+        // Fallback: use virsh command which is more reliable
         return queryVMStateViaCommand();
     }
     
-    // Query domain state
-    QDBusReply<QStringList> reply = interface.call("ListDomains");
-    if (reply.isValid()) {
-        QStringList domains = reply.value();
-        return domains.contains(m_vmName);
-    }
-    
+    // For now, use virsh as primary method since DBus API is complex
     return queryVMStateViaCommand();
 }
 

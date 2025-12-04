@@ -87,6 +87,11 @@ nano ~/.config/systemd/user/vmoverlay.service
 ### 启用自动启动（systemd）
 
 ```bash
+# 设置环境变量（可选，使用自定义路径）
+systemctl --user set-environment VM_NAME=win10
+systemctl --user set-environment OVERLAY_PATH=/path/to/overlay.qcow2
+systemctl --user set-environment BASE_PATH=/path/to/base.qcow2
+
 # 启用服务
 systemctl --user enable vmoverlay.service
 
