@@ -1,0 +1,17 @@
+[Unit]
+Description=VMOverlay - 虚拟机 Overlay 管理工具
+After=graphical.target
+
+[Service]
+Type=simple
+# 修改以下路径为实际的可执行文件路径
+ExecStart=/usr/local/bin/VMOverlay win10 --overlay /var/lib/libvirt/images/overlay.qcow2 --base /var/lib/libvirt/images/base.qcow2
+Restart=on-failure
+RestartSec=5
+
+# 运行环境
+Environment="DISPLAY=:0"
+Environment="QT_QPA_PLATFORM=wayland"
+
+[Install]
+WantedBy=default.target

@@ -39,6 +39,18 @@ sudo pacman -S base-devel cmake qt6-base qt6-svg libvirt qemu-img
 
 ## 编译步骤
 
+### 使用构建脚本（推荐）
+
+```bash
+# 使构建脚本可执行
+chmod +x build.sh
+
+# 运行构建脚本
+./build.sh
+```
+
+### 手动构建
+
 ```bash
 # 创建构建目录
 mkdir build
@@ -52,6 +64,37 @@ make
 
 # 可选：安装
 sudo make install
+```
+
+## 安装
+
+### 手动安装
+
+```bash
+# 复制可执行文件
+sudo cp build/VMOverlay /usr/local/bin/
+
+# 复制 desktop 文件（用于应用程序菜单）
+sudo cp vmoverlay.desktop /usr/share/applications/
+
+# 复制 systemd 服务文件（用于自动启动）
+mkdir -p ~/.config/systemd/user/
+cp vmoverlay.service ~/.config/systemd/user/
+# 编辑服务文件，修改路径和参数
+nano ~/.config/systemd/user/vmoverlay.service
+```
+
+### 启用自动启动（systemd）
+
+```bash
+# 启用服务
+systemctl --user enable vmoverlay.service
+
+# 启动服务
+systemctl --user start vmoverlay.service
+
+# 查看状态
+systemctl --user status vmoverlay.service
 ```
 
 ## 使用方法
